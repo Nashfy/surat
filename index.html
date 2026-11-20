@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+  <!-- This page is light on purpose: browsers and extensions must not repaint it in their own dark colours. -->
+  <meta name="color-scheme" content="only light">
+  <meta name="darkreader-lock">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#EBCBC8">
+  <title>Sepucuk Surat</title>
+  <meta name="description" content="Ada sepucuk surat yang dimeterai. Buka dengan kod rahsia. A sealed letter: open it with the secret code.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Sepucuk Surat">
+  <meta property="og:description" content="Ada sepucuk surat yang dimeterai. Buka dengan kod rahsia.">
+  <meta property="og:image" content="https://nashfy.github.io/surat/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23D6A9A8'/%3E%3Crect x='5' y='9' width='22' height='15' rx='2' fill='%23FFFDFB'/%3E%3Cpath d='M5.5 10l10.5 8 10.5-8' fill='none' stroke='%23A47B3F' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='17.5' r='3' fill='%23C9A45C'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&family=Great+Vibes&family=Playfair+Display:ital@1&family=Plus+Jakarta+Sans:wght@400..700&display=swap">
+  <link rel="stylesheet" href="assets/styles.css?v=f0affdcfb6">
+  <script type="module" src="assets/app.js?v=f0affdcfb6"></script>
+</head>
+<body>
+  <main class="lock" id="lock">
+    <i class="motif" aria-hidden="true"></i>
+    <div class="lock-inner">
+      <header id="lock-head">
+        <p class="eyebrow">Sepucuk Surat</p>
+        <h1 class="lock-for">Untuk Kakak</h1>
+      </header>
+
+      <div class="envelope" id="envelope" aria-hidden="true">
+        <div class="env-float">
+          <i class="env-back" id="env-back"></i>
+          <i class="env-letter" id="env-letter"></i>
+          <span class="env-front" id="env-front"><i class="fold-l"></i><i class="fold-r"></i><i class="fold-b-shadow"></i><i class="fold-b"></i></span>
+          <span class="flap-wrap" id="flap-wrap"><i class="env-flap" id="env-flap"></i></span>
+          <span class="seal" id="seal">
+            <i class="seal-glow" id="seal-glow"></i>
+            <i class="seal-shadow" id="seal-shadow"></i>
+            <span class="seal-half l" id="seal-l">
+              <svg viewBox="0 0 64 64"><g class="lo"><circle cx="25" cy="39" r="13"/><circle cx="40" cy="39" r="13"/></g><g class="hi"><circle cx="25" cy="39" r="13"/><circle cx="40" cy="39" r="13"/></g><path class="gem" d="M25 11l6.5 6-6.5 8.5-6.5-8.5z"/></svg>
+            </span>
+            <span class="seal-half r" id="seal-r">
+              <svg viewBox="0 0 64 64"><g class="lo"><circle cx="25" cy="39" r="13"/><circle cx="40" cy="39" r="13"/></g><g class="hi"><circle cx="25" cy="39" r="13"/><circle cx="40" cy="39" r="13"/></g><path class="gem" d="M25 11l6.5 6-6.5 8.5-6.5-8.5z"/></svg>
+            </span>
+            <i class="seal-shine" id="seal-shine"></i>
+          </span>
+        </div>
+      </div>
+
+      <!-- Shown until the script takes over. If the script cannot run, this is what she sees. -->
+      <p class="lock-note" id="lock-note">Pelayar ini tidak dapat membuka surat ini. Cuba buka pautan ini dalam Safari atau Chrome yang terkini. <span lang="en">This browser cannot open the letter. Please try the latest Safari or Chrome.</span></p>
+
+      <!-- Hidden until the script is ready, and the field has no name: the code can never end up in the address bar. -->
+      <form class="lock-form" id="lock-form" hidden novalidate>
+        <label for="code" id="code-label">Masukkan kod rahsia untuk membuka surat ini <span lang="en">Enter the secret code to open this letter</span></label>
+        <input class="code" id="code" type="text" inputmode="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="go" aria-describedby="lock-msg">
+        <button class="btn btn-primary" id="open" type="submit">Buka Surat <span lang="en">Open the letter</span></button>
+        <p class="lock-msg" id="lock-msg" role="status"></p>
+        <p class="lock-hint" id="lock-hint" hidden></p>
+      </form>
+    </div>
+    <i class="motif motif-flip" aria-hidden="true"></i>
+  </main>
+
+  <div id="stage" hidden></div>
+
+  <i class="sheet" id="sheet" hidden></i>
+  <button class="skip" id="skip" type="button" hidden>Langkau <span lang="en">Skip</span></button>
+  <p class="draft-flag" id="draft-flag" hidden>DRAF</p>
+  <canvas class="sky" id="sky" aria-hidden="true" hidden></canvas>
+
+  <!-- ornaments the script stamps into the letter -->
+  <template id="t-arch">
+    <svg class="arch" viewBox="0 0 132 168" fill="none" stroke="currentColor" aria-hidden="true">
+      <path d="M6 167V64a60 60 0 0 1 120 0v103" stroke-width="1.5"/>
+      <path d="M16 167V66a50 50 0 0 1 100 0v101" stroke-width="1" opacity=".6"/>
+      <path d="M0 167.25h132M66 63v52" stroke-width="1"/>
+      <g fill="currentColor" stroke="none">
+        <path d="M58 44h16v16H58z"/>
+        <path d="M66 40.7 77.3 52 66 63.3 54.7 52z"/>
+        <path d="M66 78l4.5 4.5L66 87l-4.5-4.5zM66 95l4 4-4 4-4-4zM66 110l3.5 3.5L66 117l-3.5-3.5z"/>
+        <circle cx="6" cy="64" r="2.2"/>
+        <circle cx="126" cy="64" r="2.2"/>
+      </g>
+    </svg>
+  </template>
+  <template id="t-rings">
+    <svg class="rings" viewBox="0 0 120 84" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+      <circle cx="46" cy="54" r="26"/>
+      <circle cx="74" cy="54" r="26"/>
+      <path d="M46 9l8 8-8 11-8-11z" fill="currentColor" stroke="none"/>
+      <path d="M99 8v11M93.5 13.5h11M17 20v9M12.5 24.5h9" stroke-width="1.6"/>
+    </svg>
+  </template>
+</body>
+</html>
